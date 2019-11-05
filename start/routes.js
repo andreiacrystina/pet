@@ -17,7 +17,13 @@
 const Route = use('Route')
 
 // Tutores Resource.
-Route.resource('tutores', 'TutorController').apiOnly()
+Route.resource('tutores', 'TutorController').apiOnly().validator(new Map([
+  [['tutores.store'], ['StoreTutor']],
+  [['tutores.update'], ['StoreTutor']]
+]))
 
 // Bolsistas Resource.
-Route.resource('bolsistas', 'BolsistaController')
+Route.resource('bolsistas', 'BolsistaController').apiOnly().validator(new Map([
+  [['bolsistas.store'], ['StoreBolsista']],
+  [['bolsistas.update'], ['StoreBolsista']]
+]))
