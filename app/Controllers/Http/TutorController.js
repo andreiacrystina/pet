@@ -22,7 +22,7 @@ class TutorController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const tutores = await Tutor.all()
+    const tutores = await Tutor.query().with('bolsistas').fetch()
 
     return tutores
   }
@@ -58,6 +58,7 @@ class TutorController {
     try {
       const { id } = params
       const tutor = await Tutor.findOrFail(id)
+      await tutor.load('bolsistas')
 
       return tutor
     } catch (error) {

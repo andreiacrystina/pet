@@ -18,3 +18,6 @@ const Route = use('Route')
 
 // Tutores Resource.
 Route.resource('tutores', 'TutorController').apiOnly()
+
+// Bolsistas Resource.
+Route.resource('bolsistas', 'BolsistaController')

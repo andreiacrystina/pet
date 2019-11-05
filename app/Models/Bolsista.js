@@ -3,14 +3,14 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Tutor extends Model {
+class Bolsista extends Model {
   static get table () {
-    return 'tutores'
+    return 'bolsistas'
   }
 
-  bolsistas () {
-    return this.hasMany('App/Models/Bolsista')
+  tutor () {
+    return this.belongsTo('App/Models/Tutor')
   }
 }
 
-module.exports = Tutor
+module.exports = Bolsista
