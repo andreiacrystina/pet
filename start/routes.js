@@ -27,3 +27,10 @@ Route.resource('bolsistas', 'BolsistaController').apiOnly().validator(new Map([
   [['bolsistas.store'], ['StoreBolsista']],
   [['bolsistas.update'], ['StoreBolsista']]
 ]))
+
+// API REST
+// json.
+// Os verbos HTTP (GET, POST, PUT e DELETE)
+
+// Reunioes Resource.
+Route.resource('reunioes', 'ReuniaoController')
