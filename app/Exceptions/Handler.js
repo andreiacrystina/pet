@@ -1,5 +1,8 @@
 'use strict'
 
+const Env = use('Env')
+const Youch = use('Youch')
+
 const BaseExceptionHandler = use('BaseExceptionHandler')
 
 /**
@@ -25,7 +28,14 @@ class ExceptionHandler extends BaseExceptionHandler {
       return response.status(error.status).send(error.messages)
     }
 
-    response.status(error.status).send(error.message)
+    if (Env.get('NODE_ENV') === 'development') {
+      const youch = new Youch(error, request.request)
+      const errorJSON = await youch.toJSON()
+
+      return response.status(error.status).send(errorJSON)
+    }
+
+    response.status(error.status)
   }
 
   /**

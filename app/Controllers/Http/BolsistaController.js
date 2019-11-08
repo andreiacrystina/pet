@@ -62,7 +62,7 @@ class BolsistaController {
 
       return bolsista
     } catch (error) {
-      return response.status(404).send({ error: { message: 'Bolsista não cadastrado.', error: error.message } })
+      return response.status(404).send({ error: { message: 'Bolsista não cadastrado.' } })
     }
   }
 
@@ -89,7 +89,7 @@ class BolsistaController {
 
       return bolsista
     } catch (error) {
-      return response.status(404).send({ error: { message: 'Bolsista não cadastrado.', error: error.message } })
+      return response.status(404).send({ error: { message: 'Bolsista não cadastrado.' } })
     }
   }
 

@@ -7,7 +7,7 @@ class BolsistaSchema extends Schema {
   up () {
     this.create('bolsistas', (table) => {
       table.increments()
-      table.integer('tutor_id').unsigned().references('id').inTable('tutores').onUpdate('CASCADE').onDelete('SET NULL')
+      table.integer('tutor_id').unsigned().references('id').inTable('tutores').onUpdate('CASCADE').onDelete('RESTRICT')
       table.string('cpf').notNullable().unique()
       table.string('nome').notNullable()
       table.string('telefone').notNullable()

@@ -22,7 +22,7 @@ class ReuniaoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const reunioes = await Reuniao.query().with('tutor').fetch()
+    const reunioes = await Reuniao.query().with('tutor').with('bolsistas').fetch()
 
     return reunioes
   }
@@ -36,6 +36,13 @@ class ReuniaoController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const data = request.only([
+      'tutor_id', 'data', 'hora', 'descricao', 'bolsista_ata'
+    ])
+
+    const reuniao = await Reuniao.create(data)
+
+    return reuniao
   }
 
   /**
@@ -48,6 +55,16 @@ class ReuniaoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    try {
+      const { id } = params
+      const reuniao = await Reuniao.findOrFail(id)
+      await reuniao.load('tutor')
+      await reuniao.load('bolsistas')
+
+      return reuniao
+    } catch (error) {
+      return response.status(404).send({ error: { message: 'Reunião não cadastrada.' } })
+    }
   }
 
   /**
@@ -59,6 +76,22 @@ class ReuniaoController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    try {
+      const { id } = params
+      const reuniao = await Reuniao.findOrFail(id)
+      await reuniao.load('tutor')
+
+      const data = request.only([
+        'tutor_id', 'data', 'hora', 'descricao', 'bolsista_ata'
+      ])
+
+      reuniao.merge(data)
+      reuniao.save()
+
+      return reuniao
+    } catch (error) {
+      return response.status(404).send({ error: { message: 'Reunião não cadastrada.' } })
+    }
   }
 
   /**
@@ -70,6 +103,16 @@ class ReuniaoController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    try {
+      const { id } = params
+      const reuniao = await Reuniao.findOrFail(id)
+
+      reuniao.delete()
+    } catch (error) {
+      return response.status(404).send({
+        error: { message: 'Reunião não cadastrada.' }
+      })
+    }
   }
 }
 

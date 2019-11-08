@@ -13,6 +13,14 @@
 |
 */
 
+// API REST
+// json.
+// Os verbos HTTP (GET, POST, PUT e DELETE)
+
+// ORM - Object Relational mapping - Mapeamento do Objeto Relacional
+// A linguagem é orientada a objeto, mas o banco de dados é relacional
+// Reuniao.create(data)
+
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
@@ -28,9 +36,8 @@ Route.resource('bolsistas', 'BolsistaController').apiOnly().validator(new Map([
   [['bolsistas.update'], ['StoreBolsista']]
 ]))
 
-// API REST
-// json.
-// Os verbos HTTP (GET, POST, PUT e DELETE)
-
 // Reunioes Resource.
-Route.resource('reunioes', 'ReuniaoController')
+Route.resource('reunioes', 'ReuniaoController').apiOnly().validator(new Map([
+  [['reunioes.store'], ['StoreReuniao']],
+  [['reunioes.update'], ['StoreReuniao']]
+]))

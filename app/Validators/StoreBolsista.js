@@ -11,6 +11,7 @@ class StoreBolsista {
     const bolsistaId = this.ctx.params.id || 0
 
     return {
+      tutor_id: 'required|number',
       cpf: `required|unique:bolsistas,cpf,id,${bolsistaId}`,
       nome: 'required',
       telefone: 'required',

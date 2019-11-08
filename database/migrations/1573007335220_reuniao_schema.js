@@ -7,7 +7,7 @@ class ReuniaoSchema extends Schema {
   up () {
     this.create('reunioes', (table) => {
       table.increments()
-      table.integer('tutor_id').unsigned().references('id').inTable('tutores').onUpdate('CASCADE').onDelete('SET NULL')
+      table.integer('tutor_id').unsigned().references('id').inTable('tutores').onUpdate('CASCADE').onDelete('RESTRICT')
       table.date('data').notNullable()
       table.time('hora').notNullable()
       table.text('descricao').notNullable()

@@ -11,6 +11,12 @@ class Reuniao extends Model {
   tutor () {
     return this.belongsTo('App/Models/Tutor')
   }
+
+  bolsistas () {
+    return this.belongsToMany('App/Models/Bolsista')
+      .withTimestamps()
+      .withPivot(['bolsista_presente'])
+  }
 }
 
 module.exports = Reuniao
