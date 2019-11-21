@@ -42,4 +42,5 @@ Route.resource('reunioes', 'ReuniaoController').apiOnly().validator(new Map([
   [['reunioes.update'], ['StoreReuniao']]
 ]))
 
-Route.resource('reunioes.frequencia', 'FrequenciaController').only(['store', 'update'])
+Route.resource('reunioes.frequencia', 'FrequenciaController').only(['store'])
+Route.put('frequencias/:id', 'FrequenciaController.update')

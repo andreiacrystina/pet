@@ -15,7 +15,7 @@ class Reuniao extends Model {
   bolsistas () {
     return this.belongsToMany('App/Models/Bolsista')
       .withTimestamps()
-      .withPivot(['bolsista_presente'])
+      .withPivot(['id', 'bolsista_presente', 'created_at', 'updated_at'])
   }
 }
 

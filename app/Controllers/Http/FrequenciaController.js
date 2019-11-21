@@ -4,6 +4,7 @@
 
 const Reuniao = use('App/Models/Reuniao')
 const Bolsista = use('App/Models/Bolsista')
+const BolsistaReuniao = use('App/Models/BolsistaReuniao')
 
 class FrequenciaController {
   /**
@@ -29,6 +30,30 @@ class FrequenciaController {
       const modelError = error.message.includes('Reuniao') ? 'Reunião não cadastrada.' : 'Bolsista não cadastrado'
 
       return response.status(404).send({ error: { message: modelError } })
+    }
+  }
+
+  /**
+   * Update reuniao details.
+   * PUT or PATCH reuniaos/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async update ({ params, request, response }) {
+    console.log('params: ', params)
+    try {
+      const { id } = params
+
+      const bolsistaReuniao = await BolsistaReuniao.findOrFail(id)
+
+      bolsistaReuniao.bolsista_presente = true
+      bolsistaReuniao.save()
+
+      return bolsistaReuniao
+    } catch (error) {
+      return response.status(404).send({ error: { message: 'Reunião não encontrada.' } })
     }
   }
 }
