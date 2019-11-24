@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class BolsistaProjetoSchema extends Schema {
   up () {
-    this.create('bolsista_projetos', (table) => {
+    this.create('bolsista_projeto', (table) => {
       table.increments()
       table.integer('bolsista_id').unsigned().references('id').inTable('bolsistas').onUpdate('CASCADE').onDelete('RESTRICT')
       table.integer('projeto_id').unsigned().references('id').inTable('projetos').onUpdate('CASCADE').onDelete('RESTRICT')
@@ -15,7 +15,7 @@ class BolsistaProjetoSchema extends Schema {
   }
 
   down () {
-    this.drop('bolsista_projetos')
+    this.drop('bolsista_projeto')
   }
 }
 

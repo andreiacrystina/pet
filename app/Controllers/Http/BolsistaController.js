@@ -54,15 +54,25 @@ class BolsistaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params, request, response, query }) {
+    const { loadReunioes, loadProjetos } = request.get()
+
     try {
       const { id } = params
       const bolsista = await Bolsista.findOrFail(id)
       await bolsista.load('tutor')
 
+      if (loadReunioes) {
+        await bolsista.load('reunioes')
+      }
+
+      if (loadProjetos) {
+        await bolsista.load('projetos')
+      }
+
       return bolsista
     } catch (error) {
-      return response.status(404).send({ error: { message: 'Bolsista não cadastrado.' } })
+      return response.status(404).send({ error })
     }
   }
 
