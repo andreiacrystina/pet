@@ -22,7 +22,7 @@ class ReuniaoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const reunioes = await Reuniao.query().with('tutor').with('bolsistas').fetch()
+    const reunioes = await Reuniao.query().with('tutor').fetch()
 
     return reunioes
   }
