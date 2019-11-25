@@ -4,6 +4,10 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+
+const Projeto = use('App/Models/Projeto')
+
 /**
  * Resourceful controller for interacting with projetos
  */
@@ -18,18 +22,9 @@ class ProjetoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-  }
+    const projetos = await Projeto.all()
 
-  /**
-   * Render a form to be used for creating a new projeto.
-   * GET projetos/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    return projetos
   }
 
   /**
@@ -41,6 +36,13 @@ class ProjetoController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const data = request.only([
+      'nome', 'data_inicio', 'data_fim', 'resumo', 'bolsista_responsavel', 'data_aceitacao'
+    ])
+
+    const projeto = await Projeto.create(data)
+
+    return projeto
   }
 
   /**
@@ -53,18 +55,6 @@ class ProjetoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing projeto.
-   * GET projetos/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
   }
 
   /**
